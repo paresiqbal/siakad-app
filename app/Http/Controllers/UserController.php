@@ -15,7 +15,7 @@ class UserController extends Controller
     public function register(UserRegisterRequest $request): UserResource
     {
         $data = $request->validated();
-        if (User::where("username", $data["username"])->count() == 1) {
+        if (User::where("username", $data["username"])->exists()) {
             throw new HttpResponseException(response([
                 "errors" => [
                     "username" => ["Username already exists"],
