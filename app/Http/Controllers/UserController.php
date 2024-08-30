@@ -25,6 +25,7 @@ class UserController extends Controller
             ], 400));
         }
 
+        // Create a new user
         $user = new User($data);
         $user->password = Hash::make($data["password"]);
         $user->save();
@@ -45,7 +46,8 @@ class UserController extends Controller
             ], 400));
         }
 
-        $user->token = Str::uudi()->toString();
+        // Generate a new token
+        $user->token = Str::uuid()->toString();
         $user->save();
 
         return new UserResource($user);
