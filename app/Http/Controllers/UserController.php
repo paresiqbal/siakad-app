@@ -11,15 +11,15 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     // register new user
+    // Register a new user
     public function register(UserRegisterRequest $request): UserResource
     {
         $data = $request->validated();
+
         if (User::where("username", $data["username"])->exists()) {
             throw new HttpResponseException(response([
                 "errors" => [
-                    "username" => [
-                        "The username has already been taken.",
-                    ],
+                    "username" => ["Username already exists"],
                 ],
             ], 400));
         }
