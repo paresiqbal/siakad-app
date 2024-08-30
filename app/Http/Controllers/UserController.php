@@ -7,6 +7,7 @@ use App\Http\Requests\UserRegisterRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -51,5 +52,17 @@ class UserController extends Controller
         $user->save();
 
         return new UserResource($user);
+    }
+
+    // Logout a user
+    public function logout(Request $request)
+    {
+        $user = $request->user();
+        $user->token = null;
+        $user->save();
+
+        return response()->json([
+            "message" => "User logged out successfully",
+        ], 200);
     }
 }
