@@ -18,12 +18,13 @@ class UserController extends Controller
         if (User::where("username", $data["username"])->exists()) {
             throw new HttpResponseException(response([
                 "errors" => [
-                    "username" => ["Username already exists"],
+                    "username" => [
+                        "The username has already been taken.",
+                    ],
                 ],
             ], 400));
         }
 
-        // create new user
         $user = new User($data);
         $user->password = Hash::make($data["password"]);
         $user->save();
