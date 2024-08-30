@@ -12,5 +12,5 @@ class News extends Model
     public $timestamps = true;
     public $incrementing = true;
 
-    protected $fillable = ["title", "image", "content", "author", "category_id", "published_at"];
+    protected $fillable = ["title", "image", "content", "author", "published_at"];
 }
