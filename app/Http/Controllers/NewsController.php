@@ -9,6 +9,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 
 class NewsController extends Controller
 {
+    // create news
     public function create(NewsRequest $request): NewsResource
     {
         $data = $request->validated();
@@ -22,24 +23,22 @@ class NewsController extends Controller
             ], 400));
         }
 
-        // Create a new news article
         $news = new News($data);
         $news->save();
 
-        // Return the newly created news item as a resource
         return new NewsResource($news);
     }
 
+    // update news
     public function update(NewsRequest $request, $id): NewsResource
     {
         $data = $request->validated();
 
-        // Find the news article by ID
         $news = News::findOrFail($id);
 
         // Check if a different news article with the same title already exists
         if (News::where("title", $data["title"])
-            ->where("id", "<>", $id) // Exclude the current article
+            ->where("id", "<>", $id)
             ->exists()
         ) {
             throw new HttpResponseException(response([
@@ -49,28 +48,24 @@ class NewsController extends Controller
             ], 400));
         }
 
-        // Update the news article with the new data
         $news->update($data);
 
-        // Return the updated news item as a resource
         return new NewsResource($news);
     }
 
+    // show specific news
     public function show($id): NewsResource
     {
-        // Find the news article by ID
         $news = News::findOrFail($id);
 
-        // Return the news item as a resource
         return new NewsResource($news);
     }
 
+    // show all news
     public function index()
     {
-        // Retrieve all news articles with pagination
-        $news = News::paginate(10); // Adjust the number for the number of items per page
+        $news = News::paginate(10);
 
-        // Return the collection of news articles as a resource
         return NewsResource::collection($news);
     }
 }
