@@ -6,6 +6,7 @@ use App\Http\Requests\NewsRequest;
 use App\Http\Resources\NewsResource;
 use App\Models\News;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Support\Facades\Request;
 
 class NewsController extends Controller
 {
@@ -22,6 +23,13 @@ class NewsController extends Controller
                 ],
             ], 400));
         }
+
+        // Check if an image was uploaded
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('news_images', 'public');
+            $data['image'] = $path;
+        }
+
 
         $news = new News($data);
         $news->save();
@@ -62,11 +70,16 @@ class NewsController extends Controller
     }
 
     // show all news
-    public function index()
+    public function index(Request $request)
     {
-        $news = News::paginate(10);
+        $query = News::query();
 
-        return NewsResource::collection($news);
+        // Sorting
+        if ($request->has('sort_by')) {
+            $query->orderBy($request->input('sort_by'), $request->input('sort_order', 'asc'));
+        }
+
+        return NewsResource::collection($query->paginate(10));
     }
 
     // delete news
