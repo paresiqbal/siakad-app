@@ -14,6 +14,15 @@ class AgendaResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+            'description' => $this->description,
+            'start_at' => $this->start_at,
+            'end_at' => $this->end_at,
+            'location' => $this->location,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
     }
 }
