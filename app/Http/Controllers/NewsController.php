@@ -6,11 +6,12 @@ use App\Http\Requests\NewsRequest;
 use App\Http\Resources\NewsResource;
 use App\Models\News;
 use Illuminate\Http\Exceptions\HttpResponseException;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class NewsController extends Controller
 {
-    // create news
+    // Create news
     public function create(NewsRequest $request): NewsResource
     {
         $data = $request->validated();
@@ -30,18 +31,16 @@ class NewsController extends Controller
             $data['image'] = $path;
         }
 
-
         $news = new News($data);
         $news->save();
 
         return new NewsResource($news);
     }
 
-    // update news
+    // Update news
     public function update(NewsRequest $request, $id): NewsResource
     {
         $data = $request->validated();
-
         $news = News::findOrFail($id);
 
         // Check if a different news article with the same title already exists
@@ -56,12 +55,23 @@ class NewsController extends Controller
             ], 400));
         }
 
+        // Check if a new image was uploaded
+        if ($request->hasFile('image')) {
+            // Delete the old image if it exists
+            if ($news->image) {
+                Storage::disk('public')->delete($news->image);
+            }
+
+            $path = $request->file('image')->store('news_images', 'public');
+            $data['image'] = $path;
+        }
+
         $news->update($data);
 
         return new NewsResource($news);
     }
 
-    // show specific news
+    // Show specific news
     public function show($id): NewsResource
     {
         $news = News::findOrFail($id);
@@ -69,20 +79,23 @@ class NewsController extends Controller
         return new NewsResource($news);
     }
 
-    // show all news
+    // Show all news
     public function index(Request $request)
     {
         $query = News::query();
 
-        // Sorting
-        if ($request->has('sort_by')) {
-            $query->orderBy($request->input('sort_by'), $request->input('sort_order', 'asc'));
+        if ($request->has('title')) {
+            $query->where('title', 'like', '%' . $request->input('title') . '%');
+        }
+
+        if ($request->has('author')) {
+            $query->where('author', $request->input('author'));
         }
 
         return NewsResource::collection($query->paginate(10));
     }
 
-    // delete news
+    // Delete news
     public function destroy($id)
     {
         $news = News::findOrFail($id);
