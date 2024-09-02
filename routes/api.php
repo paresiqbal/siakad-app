@@ -11,6 +11,6 @@ Route::post('/logout', [UserController::class, 'logout']);
 
 // news route
 Route::post('/news', [NewsController::class, 'create']);
-Route::put('/news/{id}', [NewsController::class, 'update']);
 Route::get('/news/{id}', [NewsController::class, 'show']);
 Route::get('/news', [NewsController::class, 'index']);
+Route::put('/news/{id}', [NewsController::class, 'update']);
