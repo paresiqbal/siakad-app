@@ -9,17 +9,20 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('news', function (Blueprint $table) {
-            $table->softDeletes(); // This adds the deleted_at column
+            //
         });
     }
 
-    public function down()
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
     {
         Schema::table('news', function (Blueprint $table) {
-            $table->dropSoftDeletes(); // This removes the deleted_at column
+            //
         });
     }
 };
