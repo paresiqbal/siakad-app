@@ -68,4 +68,13 @@ class NewsController extends Controller
 
         return NewsResource::collection($news);
     }
+
+    // delete news
+    public function destroy($id)
+    {
+        $news = News::findOrFail($id);
+        $news->delete();
+
+        return response()->json(['message' => 'News article deleted successfully.'], 200);
+    }
 }

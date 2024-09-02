@@ -10,7 +10,8 @@ Route::post("/users/login", [UserController::class, "login"]);
 Route::post('/logout', [UserController::class, 'logout']);
 
 // news route
-Route::post('/news', [NewsController::class, 'create']);
-Route::get('/news/{id}', [NewsController::class, 'show']);
-Route::get('/news', [NewsController::class, 'index']);
-Route::put('/news/{id}', [NewsController::class, 'update']);
+Route::post('/create-news', [NewsController::class, 'create']);
+Route::get('/get-news/{id}', [NewsController::class, 'show']);
+Route::get('/list-news', [NewsController::class, 'index']);
+Route::put('/update-news/{id}', [NewsController::class, 'update']);
+Route::delete('/delete-news/{id}', [NewsController::class, 'destroy']);
