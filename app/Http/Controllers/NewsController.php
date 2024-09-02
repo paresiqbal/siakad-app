@@ -29,4 +29,30 @@ class NewsController extends Controller
         // Return the newly created news item as a resource
         return new NewsResource($news);
     }
+
+    public function update(NewsRequest $request, $id): NewsResource
+    {
+        $data = $request->validated();
+
+        // Find the news article by ID
+        $news = News::findOrFail($id);
+
+        // Check if a different news article with the same title already exists
+        if (News::where("title", $data["title"])
+            ->where("id", "<>", $id) // Exclude the current article
+            ->exists()
+        ) {
+            throw new HttpResponseException(response([
+                "errors" => [
+                    "title" => ["Another news article with this title already exists"],
+                ],
+            ], 400));
+        }
+
+        // Update the news article with the new data
+        $news->update($data);
+
+        // Return the updated news item as a resource
+        return new NewsResource($news);
+    }
 }
