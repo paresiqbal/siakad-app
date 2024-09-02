@@ -55,4 +55,22 @@ class NewsController extends Controller
         // Return the updated news item as a resource
         return new NewsResource($news);
     }
+
+    public function show($id): NewsResource
+    {
+        // Find the news article by ID
+        $news = News::findOrFail($id);
+
+        // Return the news item as a resource
+        return new NewsResource($news);
+    }
+
+    public function index()
+    {
+        // Retrieve all news articles with pagination
+        $news = News::paginate(10); // Adjust the number for the number of items per page
+
+        // Return the collection of news articles as a resource
+        return NewsResource::collection($news);
+    }
 }
