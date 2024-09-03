@@ -51,4 +51,16 @@ class AgendaController extends Controller
 
         return new AgendaResource($agenda);
     }
+
+    // delete agenda
+    public function destroy($id)
+    {
+        $agenda = Agenda::findOrFail($id);
+        $agenda->delete();
+
+        return response()->json([
+            "status" => "success",
+            "message" => "Agenda deleted successfully",
+        ]);
+    }
 }
