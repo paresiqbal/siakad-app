@@ -29,4 +29,26 @@ class AgendaController extends Controller
 
         return new AgendaResource($agenda);
     }
+
+    // Update agenda
+    public function update(AgendaRequest $request, $id): AgendaResource
+    {
+        $data = $request->validated();
+        $agenda = Agenda::findOrFail($id);
+
+        if (Agenda::where("title", $data["title"])
+            ->where("id", "<>", $id)
+            ->exists()
+        ) {
+            throw new HttpResponseException(response()->json([
+                "errors" => [
+                    "title" => ["Another agenda with this title already exists"],
+                ],
+            ], 400));
+        }
+
+        $agenda->update($data);
+
+        return new AgendaResource($agenda);
+    }
 }
