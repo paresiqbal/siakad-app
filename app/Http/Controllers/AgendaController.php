@@ -52,6 +52,17 @@ class AgendaController extends Controller
         return new AgendaResource($agenda);
     }
 
+    // show all agenda
+    public function index()
+    {
+        $agenda = Agenda::all();
+
+        return response()->json([
+            "status" => "success",
+            "data" => AgendaResource::collection($agenda),
+        ]);
+    }
+
     // delete agenda
     public function destroy($id)
     {
