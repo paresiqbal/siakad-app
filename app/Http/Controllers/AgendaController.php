@@ -16,7 +16,8 @@ class AgendaController extends Controller
 
         // Check if a agenda article with the same title already exists
         if (Agenda::where("title", $data["title"])->exists()) {
-            throw new HttpResponseException(response([
+            throw new HttpResponseException(response()->json([
+                "status" => "error",
                 "errors" => [
                     "title" => ["Agenda with this title already exists"],
                 ],
