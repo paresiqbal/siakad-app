@@ -17,12 +17,6 @@ Route::get('/list-news', [NewsController::class, 'index']);
 Route::put('/update-news/{id}', [NewsController::class, 'update']);
 Route::delete('/delete-news/{id}', [NewsController::class, 'destroy']);
 
-// Route::get('/news', [NewsController::class, 'index']);
-// Route::get('/news/{id}', [NewsController::class, 'show']); 
-// Route::post('/news', [NewsController::class, 'store']); 
-// Route::put('/news/{id}', [NewsController::class, 'update']); 
-// Route::delete('/news/{id}', [NewsController::class, 'destroy']); 
-
 // agenda route
 Route::post('/create-agenda', [AgendaController::class, 'create']);
 Route::put('/update-agenda/{id}', [AgendaController::class, 'update']);
