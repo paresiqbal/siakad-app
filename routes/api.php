@@ -21,3 +21,4 @@ Route::delete('/delete-news/{id}', [NewsController::class, 'destroy']);
 Route::post('/create-agenda', [AgendaController::class, 'create']);
 Route::put('/update-agenda/{id}', [AgendaController::class, 'update']);
 Route::delete('/delete-agenda/{id}', [AgendaController::class, 'destroy']);
+Route::get('/list-agenda', [AgendaController::class, 'index']);
