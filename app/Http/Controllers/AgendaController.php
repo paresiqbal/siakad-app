@@ -6,7 +6,6 @@ use App\Http\Requests\AgendaRequest;
 use App\Http\Resources\AgendaResource;
 use App\Models\Agenda;
 use Illuminate\Http\Exceptions\HttpResponseException;
-use Illuminate\Http\Request;
 
 class AgendaController extends Controller
 {

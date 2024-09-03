@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -21,3 +22,6 @@ Route::delete('/delete-news/{id}', [NewsController::class, 'destroy']);
 // Route::post('/news', [NewsController::class, 'store']); 
 // Route::put('/news/{id}', [NewsController::class, 'update']); 
 // Route::delete('/news/{id}', [NewsController::class, 'destroy']); 
+
+// agenda route
+Route::post('/create-agenda', [AgendaController::class, 'create']);
