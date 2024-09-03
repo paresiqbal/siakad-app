@@ -48,6 +48,10 @@ class NewsController extends Controller
             ], 400));
         }
 
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('images/news', 'public');
+        }
+
         $news->update($data);
 
         return new NewsResource($news);
