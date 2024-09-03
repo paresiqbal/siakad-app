@@ -27,7 +27,7 @@ class StaffDirRequest extends FormRequest
             'department' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:staff_directories,email,' . $this->id,
             'phone' => 'required|string|max:20',
-            'image' => 'nullable|image|max:2048',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ];
     }
 }
