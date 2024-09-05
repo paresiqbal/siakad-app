@@ -14,31 +14,34 @@ use Illuminate\Support\Str;
 class UserController extends Controller
 {
     // Register a new user
-    public function register(UserRegisterRequest $request): UserResource
+    public function register(UserRegisterRequest $request)
     {
         $data = $request->validated();
 
-        if (User::where("username", $data["username"])->exists()) {
+        if (User::where('username', $data['username'])->exists()) {
             throw new HttpResponseException(response([
-                "errors" => [
-                    "username" => ["Username already exists"],
+                'errors' => [
+                    'username' => ['Username already exists'],
                 ],
             ], 400));
         }
 
         // Create a new user
-        $user = new User($data);
-        $user->password = Hash::make($data["password"]);
-        $user->save();
+        $user = User::create([
+            'username' => $data['username'],
+            'password' => Hash::make($data['password']),
+        ]);
 
         // Generate token using Sanctum
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        return new UserResource([
-            'user' => $user,
+        // Return user data and token
+        return response()->json([
+            'user' => new UserResource($user),
             'token' => $token,
-        ]);
+        ], 201);
     }
+
 
 
     // Login a user
