@@ -31,8 +31,15 @@ class UserController extends Controller
         $user->password = Hash::make($data["password"]);
         $user->save();
 
-        return new UserResource($user);
+        // Generate token using Sanctum
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        return new UserResource([
+            'user' => $user,
+            'token' => $token,
+        ]);
     }
+
 
     // Login a user
     public function login(UserLoginRequest $request): UserResource
