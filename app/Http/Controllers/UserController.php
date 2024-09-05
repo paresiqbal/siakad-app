@@ -75,14 +75,16 @@ class UserController extends Controller
     // Logout a user
     public function logout(Request $request)
     {
+        // Get the authenticated user
         $user = $request->user();
+
+        // Revoke the user's current token
         if ($user) {
-            $user->token = null;
-            $user->save();
+            $user->currentAccessToken()->delete();
         }
 
         return response()->json([
-            "message" => "User logged out successfully",
+            'message' => 'User logged out successfully',
         ], 200);
     }
 }
