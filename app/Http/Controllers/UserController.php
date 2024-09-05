@@ -45,24 +45,32 @@ class UserController extends Controller
 
 
     // Login a user
-    public function login(UserLoginRequest $request): UserResource
+    public function login(UserLoginRequest $request)
     {
         $data = $request->validated();
-        $user = User::where("username", $data["username"])->first();
-        if (!$user && Hash::check($data["password"], $user->password) == false) {
+
+        // Find user by username
+        $user = User::where('username', $data['username'])->first();
+
+        // Check if user exists and password matches
+        if (!$user || !Hash::check($data['password'], $user->password)) {
             throw new HttpResponseException(response([
-                "errors" => [
-                    "username" => ["Invalid username or password"],
+                'errors' => [
+                    'username' => ['Invalid username or password'],
                 ],
             ], 400));
         }
 
-        // Generate a new token
-        $user->token = Str::uuid()->toString();
-        $user->save();
+        // Generate Sanctum token
+        $token = $user->createToken('auth_token')->plainTextToken;
 
-        return new UserResource($user);
+        // Return user data and token
+        return response()->json([
+            'user' => new UserResource($user),
+            'token' => $token,
+        ], 200);
     }
+
 
     // Logout a user
     public function logout(Request $request)
