@@ -6,6 +6,10 @@ use App\Http\Controllers\StaffDirController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/', function () {
+    return "API";
+});
+
 // user route
 Route::post("/users", [UserController::class, "register"]);
 Route::post("/users/login", [UserController::class, "login"]);
