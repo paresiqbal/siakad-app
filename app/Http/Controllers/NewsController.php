@@ -8,6 +8,7 @@ use App\Models\News;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class NewsController extends Controller implements HasMiddleware
 {
@@ -41,6 +42,8 @@ class NewsController extends Controller implements HasMiddleware
 
     public function update(NewsRequest $request, $id)
     {
+        Gate::authorize('modify', News::findOrFail($id));
+
         $news = News::findOrFail($id);
 
         if ($request->user()->id !== $news->user_id) {
@@ -55,6 +58,8 @@ class NewsController extends Controller implements HasMiddleware
 
     public function destroy(Request $request, $id)
     {
+        Gate::authorize('modify', News::findOrFail($id));
+
         $news = News::findOrFail($id);
 
         if ($request->user()->id !== $news->user_id) {
