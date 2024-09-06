@@ -14,4 +14,10 @@ class NewsController extends Controller
         $news = News::with('user')->paginate(10);
         return NewsResource::collection($news);
     }
+
+    public function show($id)
+    {
+        $news = News::with('user')->findOrFail($id);
+        return new NewsResource($news);
+    }
 }
