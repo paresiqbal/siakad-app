@@ -13,7 +13,7 @@ Route::post("/login", [UserController::class, "login"]);
 Route::post('/logout', [UserController::class, 'logout'])->middleware('auth:sanctum');
 
 // news route
-Route::post('/create-news', [NewsController::class, 'create']);
+Route::post('/create-news', [NewsController::class, 'store']);
 Route::get('/get-news/{id}', [NewsController::class, 'show']);
 Route::get('/list-news', [NewsController::class, 'index']);
 Route::put('/update-news/{id}', [NewsController::class, 'update']);
