@@ -22,11 +22,10 @@ class NewsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "title" => ["required", "string", "max:255"],
-            "image" => ["nullable", "image", "max:2048"],
-            "content" => ["required", "string"],
-            "author" => ["required", "string", "max:100"],
-            "published_at" => ["nullable", "date"],
+            'title' => 'required|string|max:255',
+            'image' => 'nullable|image',
+            'content' => 'required|string',
+            'published_at' => 'nullable|date',
         ];
     }
 }
