@@ -16,4 +16,9 @@ class News extends Model
     public $incrementing = true;
 
     protected $fillable = ["title", "image", "content", "author", "published_at"];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

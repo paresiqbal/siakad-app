@@ -18,4 +18,9 @@ class User extends Model
     public $timestamps = true;
 
     protected $fillable = ["username", "password"];
+
+    public function news()
+    {
+        return $this->hasMany(News::class);
+    }
 }
