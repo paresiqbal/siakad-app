@@ -20,4 +20,18 @@ class NewsController extends Controller
         $news = News::with('user')->findOrFail($id);
         return new NewsResource($news);
     }
+
+    public function store(NewsRequest $request)
+    {
+        $data = $request->validated();
+        $data['user_id'] = auth()->id();
+
+        // Handle image upload if present
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('images/news', 'public');
+        }
+
+        $news = News::create($data);
+        return new NewsResource($news);
+    }
 }
