@@ -21,5 +21,19 @@ class NewsController extends Controller
         return new NewsResource($news);
     }
 
-    public function store(NewsRequest $request) {}
+    public function store(NewsRequest $request)
+    {
+        if (!$request->has('user_id')) {
+            throw new HttpResponseException(
+                response()->json(['error' => 'User ID is required'], 400)
+            );
+        }
+
+        $news = new News($request->validated());
+        $news->user_id = $request->input('user_id');
+
+        $news->save();
+
+        return new NewsResource($news);
+    }
 }
