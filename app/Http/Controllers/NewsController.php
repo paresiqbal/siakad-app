@@ -10,29 +10,21 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 class NewsController extends Controller
 {
     // create news
-    // public function create(NewsRequest $request): NewsResource
-    // {
-    //     $data = $request->validated();
-
-    //     // Check if a news article with the same title already exists
-    //     if (News::where("title", $data["title"])->exists()) {
-    //         throw new HttpResponseException(response([
-    //             "errors" => [
-    //                 "title" => ["News with this title already exists"],
-    //             ],
-    //         ], 400));
-    //     }
-
-    //     $news = new News($data);
-    //     $news->save();
-
-    //     return new NewsResource($news);
-    // }
-
     public function create(NewsRequest $request): NewsResource
     {
-        $news = $request->user()->news()->create($request->validated());
+        $data = $request->validated();
 
+        // Check if a news article with the same title already exists
+        if (News::where("title", $data["title"])->exists()) {
+            throw new HttpResponseException(response([
+                "errors" => [
+                    "title" => ["News with this title already exists"],
+                ],
+            ], 400));
+        }
+
+        $news = new News($data);
+        $news->save();
 
         return new NewsResource($news);
     }
