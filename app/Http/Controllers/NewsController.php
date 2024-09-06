@@ -5,10 +5,18 @@ namespace App\Http\Controllers;
 use App\Http\Requests\NewsRequest;
 use App\Http\Resources\NewsResource;
 use App\Models\News;
-use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class NewsController extends Controller
+class NewsController extends Controller implements HasMiddleware
 {
+    public static function middleware()
+    {
+        return [
+            new Middleware('auth:sanctum', except: ['index', 'show'])
+        ];
+    }
+
     public function index()
     {
         $news = News::with('user')->paginate(10);
@@ -23,16 +31,9 @@ class NewsController extends Controller
 
     public function store(NewsRequest $request)
     {
-        if (!$request->has('user_id')) {
-            throw new HttpResponseException(
-                response()->json(['error' => 'User ID is required'], 400)
-            );
-        }
-
-        $news = new News($request->validated());
-        $news->user_id = $request->input('user_id');
-
-        $news->save();
+        $fields = $request->validated();
+        $user = $request->user();
+        $news = $user->newses()->create($fields);
 
         return new NewsResource($news);
     }

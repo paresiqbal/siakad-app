@@ -26,6 +26,7 @@ class NewsRequest extends FormRequest
             'image' => 'nullable|image',
             'content' => 'required|string',
             'published_at' => 'nullable|date',
+            'author' => 'required|string|max:255'
         ];
     }
 }
