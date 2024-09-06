@@ -32,12 +32,12 @@ class UserController extends Controller
         ]);
 
         // Generate token using Sanctum
-        $token = $user->createToken('auth_token')->plainTextToken;
+        $token = $user->createToken($request->username);
 
         // Return user data and token
         return response()->json([
             'user' => new UserResource($user),
-            'token' => $token,
+            'token' => $token->plainTextToken,
         ], 201);
     }
 
@@ -61,12 +61,12 @@ class UserController extends Controller
         }
 
         // Generate Sanctum token
-        $token = $user->createToken('auth_token')->plainTextToken;
+        $token = $user->createToken($user->username);
 
         // Return user data and token
         return response()->json([
             'user' => new UserResource($user),
-            'token' => $token,
+            'token' => $token->plainTextToken,
         ], 200);
     }
 
@@ -74,16 +74,10 @@ class UserController extends Controller
     // Logout a user
     public function logout(Request $request)
     {
-        // Get the authenticated user
-        $user = $request->user();
-
-        // Revoke the user's current token
-        if ($user) {
-            $user->currentAccessToken()->delete();
-        }
+        $request->user()->tokens()->delete();
 
         return response()->json([
-            'message' => 'User logged out successfully',
+            'message' => 'Logged out successfully',
         ], 200);
     }
 }
