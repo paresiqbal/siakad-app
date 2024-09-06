@@ -37,4 +37,18 @@ class NewsController extends Controller implements HasMiddleware
 
         return new NewsResource($news);
     }
+
+    public function update(NewsRequest $request, $id)
+    {
+        $news = News::findOrFail($id);
+
+        if ($request->user()->id !== $news->user_id) {
+            return response()->json(['error' => 'You are not authorized to update this news post'], 403);
+        }
+
+        $fields = $request->validated();
+        $news->update($fields);
+
+        return new NewsResource($news);
+    }
 }
