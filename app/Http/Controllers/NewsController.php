@@ -7,6 +7,7 @@ use App\Http\Resources\NewsResource;
 use App\Models\News;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Http\Request;
 
 class NewsController extends Controller implements HasMiddleware
 {
@@ -50,5 +51,18 @@ class NewsController extends Controller implements HasMiddleware
         $news->update($fields);
 
         return new NewsResource($news);
+    }
+
+    public function destroy(Request $request, $id)
+    {
+        $news = News::findOrFail($id);
+
+        if ($request->user()->id !== $news->user_id) {
+            return response()->json(['error' => 'You are not authorized to delete this news post'], 403);
+        }
+
+        $news->delete();
+
+        return response()->json(['message' => 'News post deleted successfully'], 200);
     }
 }
