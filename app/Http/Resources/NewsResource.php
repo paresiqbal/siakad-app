@@ -19,7 +19,7 @@ class NewsResource extends JsonResource
             "title" => $this->title,
             "image" => $this->image,
             "description" => $this->description,
-            "author" => $this->author,
+            "author" => new UserResource($this->whenLoaded('user')), // Load the author's data
             "published_at" => $this->published_at,
         ];
     }
