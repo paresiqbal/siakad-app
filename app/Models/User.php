@@ -19,7 +19,7 @@ class User extends Model
 
     protected $fillable = ["username", "password"];
 
-    public function news()
+    public function newses()
     {
         return $this->hasMany(News::class);
     }
