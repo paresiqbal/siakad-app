@@ -12,5 +12,13 @@ class News extends Model
     protected $fillable = [
         'title',
         'body',
+        'image',
+        'author',
     ];
+
+    // News belongs to a User (Author)
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'author');
+    }
 }

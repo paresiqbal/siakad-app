@@ -11,7 +11,7 @@ class UpdateNewsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class UpdateNewsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => 'nullable|string|max:255',
+            'body'  => 'nullable|string',
+            'image' => 'nullable|image|max:2048', // Optional image with max size 2MB
         ];
     }
 }

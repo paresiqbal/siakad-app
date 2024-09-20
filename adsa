@@ -1,0 +1,77 @@
+[33mcommit 4cfa281b46553a7dd1c3f2722743b5609ebdf605[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: paresiqbal <thecrowdel@gmail.com>
+Date:   Fri Sep 20 20:08:49 2024 +0700
+
+    Refactor NewsController store method to create a news entry
+
+[33mcommit deaf0eaa0f76da4f75c668b59fa0c9755566b59f[m
+Author: paresiqbal <thecrowdel@gmail.com>
+Date:   Fri Sep 20 19:43:23 2024 +0700
+
+    Remove thisadjasbda
+
+[33mcommit b1d2d3059af2d74f69b64cb79789443ade13e7a3[m
+Author: paresiqbal <thecrowdel@gmail.com>
+Date:   Fri Sep 20 19:30:04 2024 +0700
+
+    Add NewsController and related files
+
+[33mcommit 8933480b103bb5c6dc1fa958fe4426076cf69583[m
+Author: paresiqbal <thecrowdel@gmail.com>
+Date:   Fri Sep 20 19:12:29 2024 +0700
+
+    remove
+
+[33mcommit 8b02502bfd3ecad065f4a5a170ba94450351a164[m
+Author: paresiqbal <thecrowdel@gmail.com>
+Date:   Fri Sep 20 19:07:35 2024 +0700
+
+    adasd
+
+[33mcommit d975daddb01cb7a09e15693ddbd46f465024129d[m
+Author: paresiqbal <thecrowdel@gmail.com>
+Date:   Fri Sep 20 19:06:17 2024 +0700
+
+    Remove AgendaSeeder
+
+[33mcommit 1deb1d657f404cf96128526dcaf075ca5b44f346[m
+Author: paresiqbal <thecrowdel@gmail.com>
+Date:   Fri Sep 20 19:05:57 2024 +0700
+
+    remove thisng
+
+[33mcommit 744841e9d9fe9d5e34e115cfa8d41fb57a54f3de[m
+Author: paresiqbal <thecrowdel@gmail.com>
+Date:   Fri Sep 20 19:05:41 2024 +0700
+
+    Remove unecessary
+
+[33mcommit 71a629d8cee5f8c5f06480b46729acabc2eabad0[m
+Author: paresiqbal <thecrowdel@gmail.com>
+Date:   Fri Sep 20 18:55:32 2024 +0700
+
+    Refactor NewsController to use correct relationship method for creating news
+
+[33mcommit e4b87e882ab7830f9877ac7ee6b58f8906d90a0d[m
+Author: paresiqbal <thecrowdel@gmail.com>
+Date:   Fri Sep 20 18:54:12 2024 +0700
+
+    Refactor NewsController to use correct relationship method for creating news
+
+[33mcommit 90754c15104c53870f56858cac207da1db9c4e10[m
+Author: paresiqbal <thecrowdel@gmail.com>
+Date:   Fri Sep 20 18:25:51 2024 +0700
+
+    Refactor NewsController to use 'author' instead of 'user_id' for creating news
+
+[33mcommit e802d416651a3f60c049a7a06545133330301278[m
+Author: paresiqbal <thecrowdel@gmail.com>
+Date:   Fri Sep 20 18:24:34 2024 +0700
+
+    Refactor NewsController to use correct relationship method for creating news
+
+[33mcommit db70653f7d45e22769d3ab391dfe6cedec41616d[m
+Author: paresiqbal <thecrowdel@gmail.com>
+Date:   Fri Sep 20 18:11:57 2024 +0700
+
+    Refactor NewsController to use correct relationship method for creating news

@@ -21,16 +21,19 @@ class NewsController extends Controller
      */
     public function store(StoreNewsRequest $request)
     {
-        $fields = $request->validate(
-            [
-                'title' => 'required|string|max:255',
-                'body' => 'required|string',
-            ]
-        );
+        $fields = $request->validated();
+
+        // Handle the image upload
+        if ($request->hasFile('image')) {
+            $fields['image'] = $request->file('image')->store('images', 'public');
+        }
+
+        // Add the currently authenticated user as the author
+        $fields['author'] = auth()->id();
 
         $news = News::create($fields);
 
-        return ['news' => $news];
+        return response()->json(['news' => $news], 201);
     }
 
     /**
