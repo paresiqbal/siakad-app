@@ -21,14 +21,16 @@ class NewsController extends Controller
      */
     public function store(StoreNewsRequest $request)
     {
-        $request->validate(
+        $fields = $request->validate(
             [
                 'title' => 'required|string|max:255',
                 'body' => 'required|string',
             ]
         );
 
-        return "ok";
+        $news = News::create($fields);
+
+        return ['news' => $news];
     }
 
     /**

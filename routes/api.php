@@ -1,8 +1,6 @@
 <?php
 
-use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\NewsController;
-use App\Http\Controllers\StaffDirController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -13,7 +11,6 @@ Route::get('/user', function (Request $request) {
     return response()->json([
         'id' => $user->id,
         'username' => $user->username,
-        // Return other necessary fields if needed, but exclude sensitive data like password
     ]);
 })->middleware('auth:sanctum');
 
@@ -29,15 +26,3 @@ Route::get('/get-news/{id}', [NewsController::class, 'show']);
 Route::get('/list-news', [NewsController::class, 'index']);
 Route::put('/update-news/{id}', [NewsController::class, 'update']);
 Route::delete('/delete-news/{id}', [NewsController::class, 'destroy']);
-
-// agenda route
-Route::post('/create-agenda', [AgendaController::class, 'create']);
-Route::put('/update-agenda/{id}', [AgendaController::class, 'update']);
-Route::delete('/delete-agenda/{id}', [AgendaController::class, 'destroy']);
-Route::get('/list-agenda', [AgendaController::class, 'index']);
-
-// staff directory route
-Route::post('/create-staff', [StaffDirController::class, 'create']);
-Route::put('/update-staff/{id}', [StaffDirController::class, 'update']);
-Route::delete('/delete-staff/{id}', [StaffDirController::class, 'destroy']);
-Route::get('/list-staff', [StaffDirController::class, 'index']);
