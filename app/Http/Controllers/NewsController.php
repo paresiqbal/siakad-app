@@ -34,12 +34,8 @@ class NewsController extends Controller implements HasMiddleware
     public function store(NewsRequest $request)
     {
         $fields = $request->validated();
-
         $user = $request->user();
-
-        $fields['author'] = $user->id;
-
-        $news = $user->news()->create($fields);
+        $news = $user->newses()->create($fields);
 
         return new NewsResource($news);
     }
