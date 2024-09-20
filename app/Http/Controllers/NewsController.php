@@ -35,18 +35,14 @@ class NewsController extends Controller implements HasMiddleware
     {
         $fields = $request->validated();
 
-        // Ensure that the authenticated user is retrieved
         $user = $request->user();
 
-        // Add the 'user_id' field to the fields array
-        $fields['user_id'] = $user->id;
+        $fields['author'] = $user->id;
 
-        // Create the news associated with the user
         $news = $user->news()->create($fields);
 
         return new NewsResource($news);
     }
-
 
     public function update(NewsRequest $request, $id)
     {
