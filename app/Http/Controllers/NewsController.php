@@ -35,7 +35,8 @@ class NewsController extends Controller implements HasMiddleware
     {
         $fields = $request->validated();
         $user = $request->user();
-        $news = $user->newses()->create($fields);
+
+        $news = $user->news()->create($fields);
 
         return new NewsResource($news);
     }

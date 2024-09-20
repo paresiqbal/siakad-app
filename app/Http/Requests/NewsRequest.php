@@ -23,9 +23,9 @@ class NewsRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
+            'content' => 'required',
             'image' => 'nullable|image',
-            'content' => 'required|string',
-            'published_at' => 'nullable|date',
+            'publish_at' => 'required|date',
         ];
     }
 }
